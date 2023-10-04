@@ -1,0 +1,32 @@
+Books- It contains information about the books belongs to the library
+Column Name	Data Type	Description
+Book_No	Number(6)	Book identification number
+Book_Name		VarChar2(30)	Name of the book
+Author_name	Varchar2(30)	Author of the book
+Cost	Number(7,2)	Cost of the book
+Category	Char(10)	Category like System , Fiction ,Database etc.
+			
+
+1)	Insert data in Book table as follows:
+
+Book_No	Book Name	Author	Cost	Category
+101	Let us C	Denis Ritchie	450	System
+102	Oracle – Complete Ref	Loni	550	Database
+103	Mastering SQL	Loni	250	Database
+104	PL SQL-Ref	Scott Urman	750	Database
+
+
+
+
+1] select all the records
+2] select records whose cost between >=500 and <=700
+3] Find record with book name staring with O letter
+4] find records whose cost is < avg cost
+5] create new table with same structure
+4] create new table as copy of books
+5] create new table with database as category
+6] find record with max cost
+7] find record with min cost
+8]find name of the author who has  published more than one book
+
+

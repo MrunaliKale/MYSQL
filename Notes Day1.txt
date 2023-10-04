@@ -1,0 +1,134 @@
+create table shirts (name varchar(30),size enum('xsmall','small','medium','large'));
+
+insert into shirts values('POLO','small');
+
+insert into shirts values('corcs','large');
+insert into shirts values('JP','asdf');
+
+create table member (Member_Id int(5) primary key,Member_Name varchar(20),Member_address varchar(10),Acc_Open_Date date,Membership_type enum('Lifetime','Annual','Half Yearly','Quarterly'),Fees_paid int(5),Max_Books_Allowed int(2),Penalty_Amount double)
+
+Before we proceed to explain the MySQL database system, let us revise a few definitions related to the database.
+
+Database − A database is a collection of tables, with related data.
+Table − A table is a matrix with data. A table in a database looks like a simple spreadsheet.
+Column − One column (data element) contains data of one and the same kind, for example the column postcode.
+Row − A row (= tuple, entry or record) is a group of related data, for example the data of one subscription.
+Redundancy − Storing data twice, redundantly to make the system faster.
+Primary Key − A primary key is unique. A key value can not occur twice in one table. With a key, you can only find one row.
+Foreign Key − A foreign key is the linking pin between two tables.
+Compound Key − A compound key (composite key) is a key that consists of multiple columns, because one column is not sufficiently unique.
+Index − An index in a database resembles an index at the back of a book.
+Referential Integrity − Referential Integrity makes sure that a foreign key value always points to an existing row.
+
+
+
+What is a Database?
+A database is a separate application that stores a collection of data. Each database has one or more distinct APIs for creating, accessing, managing, searching and replicating the data it holds.
+
+Other kinds of data stores can also be used, such as files on the file system or large hash tables in memory but data fetching and writing would not be so fast and easy with those type of systems.
+
+Nowadays, we use relational database management systems (RDBMS) to store and manage huge volume of data. This is called relational database because all the data is stored into different tables and relations are established using primary keys or other keys known as Foreign Keys.
+
+
+
+
+
+
+
+MySQL is a very popular, open source database.
+Officially pronounced “my Ess Que Ell” (not my sequel).
+Handles very large databases;  very fast performance.
+Why are we using MySQL?
+Free (much cheaper than Oracle!)
+Each student can install MySQL locally.
+Before we proceed to explain the MySQL database system, let us revise a few definitions related to the database.
+
+Database − A database is a collection of tables, with related data.
+Table − A table is a matrix with data. A table in a database looks like a simple spreadsheet.
+Column − One column (data element) contains data of one and the same kind, for example the column postcode.
+Row − A row (= tuple, entry or record) is a group of related data, for example the data of one subscription.
+Redundancy − Storing data twice, redundantly to make the system faster.
+Primary Key − A primary key is unique. A key value can not occur twice in one table. With a key, you can only find one row.
+Foreign Key − A foreign key is the linking pin between two tables.
+Compound Key − A compound key (composite key) is a key that consists of multiple columns, because one column is not sufficiently unique.
+Index − An index in a database resembles an index at the back of a book.
+Referential Integrity − Referential Integrity makes sure that a foreign key value always points to an existing row.
+
+
+
+What is a Database?
+A database is a separate application that stores a collection of data. Each database has one or more distinct APIs for creating, accessing, managing, searching and replicating the data it holds.
+
+Other kinds of data stores can also be used, such as files on the file system or large hash tables in memory but data fetching and writing would not be so fast and easy with those type of systems.
+
+Nowadays, we use relational database management systems (RDBMS) to store and manage huge volume of data. This is called relational database because all the data is stored into different tables and relations are established using primary keys or other keys known as Foreign Keys.
+
+
+
+
+
+
+
+MySQL is a very popular, open source database.
+Officially pronounced “my Ess Que Ell” (not my sequel).
+Handles very large databases;  very fast performance.
+Why are we using MySQL?
+Free (much cheaper than Oracle!)
+Each student can install MySQL locally.
+Easy to use Shell for creating tables, querying tables, etc.
+Easy to use with Java JDBC
+
+MySQL is a relational database management system based on SQL – Structured Query Language. The application is used for a wide range of purposes, including data warehousing, e-commerce, and logging applications.
+
+The most common use for mySQL however, is for the purpose of a web database. It can be used to store anything from a single record of information to an entire inventory of available products for an online store.
+
+
+1] select all the records
+2] select records whose cost between >=500 and <=700
+3] Find record with book name staring with O letter
+4] find records whose cost is < avg cost
+5] create new table with same structure
+4] create new table as copy of books
+5] create new table with database as category
+6] find record with max cost
+7] find record with min cost
+8]find name of the author who has  published more than one book
+
+Syntax:
+
+ALTER TABLE table_name  
+RENAME TO new_table_name;  
+Example:
+
+In this example, the table name cus_tbl is renamed as cus_table.
+
+ALTER TABLE cus_tbl  
+RENAME TO cus_table;
+
+
+
+
+
+
+
+
+Syntax:
+
+ALTER TABLE table_name  
+CHANGE COLUMN old_name new_name   
+column_definition  
+[ FIRST | AFTER column_name ]  
+Example:
+
+In this example, we will change the column name "cus_surname" to "cus_title".
+
+Use the following query to do this:
+
+ ALTER TABLE  cus_tbl  
+CHANGE COLUMN cus_surname cus_title  
+varchar(20) NOT NULL; 
+
+
+
+
+

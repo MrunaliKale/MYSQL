@@ -1,0 +1,427 @@
+Procedure -
+
+A FUNCTION is always returns a value using the return statement. A  PROCEDURE may return one or more values through parameters or may not return at all.
+b. Functions are normally used for computations where as procedures are normally used for executing business logic.
+c. A Function returns 1 value only. Procedure can return multiple values (max 1024).
+d. Stored procedure returns always integer value by default zero. Whereas function returns type could be scalar or table or table values
+e. Stored procedure is precompiled execution plan where as functions are not.
+f. A function can call directly by SQL statement like select func_name from dual while procedure cannot.
+g.Stored procedure has the security and reduces the network traffic and also we can call stored procedure in any no. of applications at a time.
+h. A Function can be used in the SQL Queries while a procedure cannot be used in SQL queries .that cause a major 
+difference b/w function and procedures.
+
+CASE 4: A Stored Function that Accept No Parameters
+DELIMITER |
+CREATE FUNCTION sample_fn_no_param ()
+RETURNS INT
+BEGIN
+DECLARE count INT;
+SELECT COUNT(*) INTO count FROM emp;
+RETURN count;
+END
+|
+DELIMITER ;
+
+
+Execute and Verify Commands
+select sample_fn_no_param ();
+
+
+
+
+
+
+
+
+1. Deterministic functions :Deterministic functions always result in the same output every time they are called with a fixed set of input values and given the same condition of the database. For example, AVG() function always results the same result given the qualifications stated above.
+2. Nondeterministic functions :Nondeterministic functions result in different output each time they are called with a fixed set of input values even if the database state that they access remains the same. For example, GETDATE() function, results the current date and time value, always a different value.
+Non-deterministic means a value like Now() or Rand() determines results. Your query is deterministic.
+
+mysql> CREATE FUNCTION hello (s CHAR(20))
+mysql> RETURNS CHAR(50) DETERMINISTIC
+    -> RETURN CONCAT('Hello, ',s,'!');
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT hello('world');
++----------------+
+| hello('world') |
++----------------+
+| Hello, world!  |
++----------------+
+1 row in set (0.00 sec)
+
+
+CASE 1: A Stored Procedure that Accept No Parameters
+CASE 2: A Stored Procedure that Accept Parameters (IN, OUT, INOUT)
+CASE 3: A Stored Procedure that Accept Parameters, Return ResultSet
+
+
+CASE 4: A Stored Function that Accept No Parameters
+CASE 5: A Stored Function that Accept Parameters
+
+
+In MySQL, a function is a stored program that you can pass parameters into and then return a value.
+
+CREATE FUNCTION function_name [ (parameter datatype [, parameter datatype]) ]   
+RETURNS return_datatype  
+BEGIN  
+Declaration_section  
+Executable_section  
+END; 
+
+Parameter:
+Function_name: name of the function
+Parameter: number of parameter. It can be one or more than one.
+return_datatype: return value datatype of the function
+declaration_section: all variables are declared.
+executable_section: code for the function is written here.
+
+    
+    
+    
+CREATE PROCEDURE fact(IN x INT)
+BEGIN
+  DECLARE result INT;
+  DECLARE i INT;
+  SET result = 1;
+  SET i = 1;
+  WHILE i <= x DO
+    SET result = result * i;
+    SET i = i + 1;
+  END WHILE;
+
+  SELECT x AS Number, result as Factorial;
+
+END;
+
+CALL fact(1) //
+CALL fact(2) //
+CALL fact(4) //
+CALL fact(0) //
+
+
+
+DROP PROCEDURE IF EXISTS fact //
+CREATE PROCEDURE fact(IN x INT)
+BEGIN
+
+  DECLARE result INT DEFAULT 1;  /* notice you can declare a variable*/
+  DECLARE i INT DEFAULT 1;       /* and give it a value in one line */
+
+  REPEAT
+    SET result = result * i;
+    SET i = i + 1;
+  UNTIL i > x
+  END REPEAT;
+
+  SELECT x AS Number, result as Factorial;
+
+END;
+//
+
+CALL fact(1) //
+CALL fact(2) //
+CALL fact(4) //
+CALL fact(0) //
+
+
+DELIMITER //
+
+CREATE FUNCTION CalcIncome ( starting_value INT )
+RETURNS INT
+BEGIN
+   DECLARE income INT;
+   SET income = 0;
+
+   label1: WHILE income <= 3000 DO
+     SET income = income + starting_value;
+   END WHILE label1;
+
+   RETURN income;
+END; //
+
+DELIMITER ;
+You could then reference your new function as follows:
+
+SELECT CalcIncome (1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Syntax:
+
+ALTER TABLE table_name  
+RENAME TO new_table_name;  
+Example:
+
+In this example, the table name cus_tbl is renamed as cus_table.
+
+ALTER TABLE cus_tbl  
+RENAME TO cus_table;
+
+
+
+
+
+
+
+
+
+
+
+
+Syntax:
+
+ALTER TABLE table_name  
+CHANGE COLUMN old_name new_name   
+column_definition  
+[ FIRST | AFTER column_name ]  
+Example:
+
+In this example, we will change the column name "cus_surname" to "cus_title".
+
+Use the following query to do this:
+
+ ALTER TABLE  cus_tbl  
+CHANGE COLUMN cus_surname cus_title  
+varchar(20) NOT NULL; 
+
+
+
+
+
+
+
+Syntax:
+
+ALTER TABLE table_name  
+DROP COLUMN column_name;  
+Let's take an example to drop the column name "cus_address" from the table "cus_tbl".
+
+Use the following query to do this:
+
+ALTER TABLE cus_tbl  
+DROP COLUMN cus_address;
+
+
+
+
+
+
+
+The MODIFY command is used to change the column definition of the table.
+
+Syntax:
+
+ALTER TABLE table_name  
+MODIFY column_name column_definition  
+[ FIRST | AFTER column_name ];  
+Example:
+
+In this example, we modify the column cus_surname to be a data type of varchar(50) and force the column to allow NULL values.
+
+Use the following query to do this:
+
+ALTER TABLE cus_tbl  
+MODIFY cus_surname varchar(50) NULL; 
+
+
+
+
+
+
+
+Syntax:
+
+ ALTER TABLE table_name  
+ ADD new_column_name column_definition  
+ [ FIRST | AFTER column_name ],  
+ADD new_column_name column_definition  
+[ FIRST | AFTER column_name ],  
+  ...  
+;  
+Example:
+
+In this example, we add two new columns "cus_address", and cus_salary in the existing table "cus_tbl". cus_address is added after cus_surname column and cus_salary is added after cus_age column.
+
+Use the following query to do this:
+
+ALTER TABLE cus_tbl  
+ADD cus_address varchar(100) NOT NULL  
+AFTER cus_surname,  
+ADD cus_salary int(100) NOT NULL  
+AFTER cus_age ; 
+
+
+
+
+
+
+
+
+
+Example:
+
+In this example, we add a new column "cus_age" in the existing table "cus_tbl".
+
+Use the following query to do this:
+
+ALTER TABLE cus_tbl  
+ADD cus_age varchar(40) NOT NULL; 
+
+
+
+
+
+
+
+
+
+MySQL ALTER statement is used when you want to change the name of your table or any table field. It is also used to add or delete an existing column in a table.
+
+The ALTER statement is always used with "ADD", "DROP" and "MODIFY" commands according to the situation.
+
+1) ADD a column in the table
+Syntax:
+
+ALTER TABLE table_name  
+ADD new_column_name column_definition  
+[ FIRST | AFTER column_name ];  
+
+Parameters
+table_name: It specifies the name of the table that you want to modify.
+
+new_column_name: It specifies the name of the new column that you want to add to the table.
+
+column_definition: It specifies the data type and definition of the column (NULL or NOT NULL, etc).
+
+FIRST | AFTER column_name: It is optional. It tells MySQL where in the table to create the column. If this parameter is not specified, the new column will be added to the end of the table.
+
+    
+    
+    
+    
+    
+
+Books- It contains information about the books belongs to the library
+Column Name	Data Type	Description
+Book_No	Number(6)	Book identification number
+Book_Name		VarChar2(30)	Name of the book
+Author_name	Varchar2(30)	Author of the book
+Cost	Number(7,2)	Cost of the book
+Category	Char(10)	Category like System , Fiction ,Database etc.
+			
+
+1)	Insert data in Book table as follows:
+
+Book_No	Book Name	Author	Cost	Category
+101	Let us C	Denis Ritchie	450	System
+102	Oracle – Complete Ref	Loni	550	Database
+103	Mastering SQL	Loni	250	Database
+104	PL SQL-Ref	Scott Urman	750	Database
+
+
+
+
+1] select all the records
+2] select records whose cost between >=500 and <=700
+3] Find record with book name staring with O letter
+4] find records whose cost is < avg cost
+5] create new table with same structure
+4] create new table as copy of books
+5] create new table with database as category
+6] find record with max cost
+7] find record with min cost
+8] find name of the author who has  published more than one book
+
+
+
+
+
+
+
+
+
+
+create table shirts (name varchar(30),size enum('xsmall','small','medium','large'));
+
+insert into shirts values('POLO','small');
+
+insert into shirts values('corcs','large');
+insert into shirts values('JP','asdf');
+
+create table member (Member_Id int(5) primary key,Member_Name varchar(20),Member_address varchar(10),Acc_Open_Date date,Membership_type enum('Lifetime','Annual','Half Yearly','Quarterly'),Fees_paid int(5),Max_Books_Allowed int(2),Penalty_Amount double)
+
+
+
+
+
+
+
+
+
+
+https://github.com/sbmadake/SQLassessment
+    
+
+Before we proceed to explain the MySQL database system, let us revise a few definitions related to the database.
+
+Database − A database is a collection of tables, with related data.
+Table − A table is a matrix with data. A table in a database looks like a simple spreadsheet.
+Column − One column (data element) contains data of one and the same kind, for example the column postcode.
+Row − A row (= tuple, entry or record) is a group of related data, for example the data of one subscription.
+Redundancy − Storing data twice, redundantly to make the system faster.
+Primary Key − A primary key is unique. A key value can not occur twice in one table. With a key, you can only find one row.
+Foreign Key − A foreign key is the linking pin between two tables.
+Compound Key − A compound key (composite key) is a key that consists of multiple columns, because one column is not sufficiently unique.
+Index − An index in a database resembles an index at the back of a book.
+Referential Integrity − Referential Integrity makes sure that a foreign key value always points to an existing row.
+
+
+
+What is a Database?
+A database is a separate application that stores a collection of data. Each database has one or more distinct APIs for creating, accessing, managing, searching and replicating the data it holds.
+
+Other kinds of data stores can also be used, such as files on the file system or large hash tables in memory but data fetching and writing would not be so fast and easy with those type of systems.
+
+Nowadays, we use relational database management systems (RDBMS) to store and manage huge volume of data. This is called relational database because all the data is stored into different tables and relations are established using primary keys or other keys known as Foreign Keys.
+
+
+
+
+
+
+
+MySQL is a very popular, open source database.
+Officially pronounced “my Ess Que Ell” (not my sequel).
+Handles very large databases;  very fast performance.
+Why are we using MySQL?
+Free (much cheaper than Oracle!)
+Each student can install MySQL locally.
+Easy to use Shell for creating tables, querying tables, etc.
+Easy to use with Java JDBC
+
+MySQL is a relational database management system based on SQL – Structured Query Language. The application is used for a wide range of purposes, including data warehousing, e-commerce, and logging applications.
+
+The most common use for mySQL however, is for the purpose of a web database. It can be used to store anything from a single record of information to an entire inventory of available products for an online store.
